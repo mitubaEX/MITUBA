@@ -1,0 +1,14 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = "com.mituba.searcher.Main"
+
+jar {
+    manifest {
+        attributes("Main-Class": "com.mituba.searcher.Main")
+    }
+}
+
+dependencies {
+    compile fileTree(dir: './src/main/lib', includes: ['*.jar'])
+}
