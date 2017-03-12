@@ -1,14 +1,22 @@
 apply plugin: 'java'
 apply plugin: 'application'
+apply plugin: 'maven'
 
 mainClassName = "com.mituba.searcher.Main"
+
+repositories{
+  jcenter()
+  mavenLocal()
+}
+dependencies {
+    compile 'com.github.pochi:pochi-runner:1.0-SNAPSHOT'
+}
 
 jar {
     manifest {
         attributes("Main-Class": "com.mituba.searcher.Main")
     }
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
 }
 
-dependencies {
-    compile fileTree(dir: './src/main/lib', includes: ['*.jar'])
-}
+

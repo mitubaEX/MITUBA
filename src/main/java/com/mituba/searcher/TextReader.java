@@ -2,6 +2,7 @@ package com.mituba.searcher;
 
 import com.mituba.searcher.SearchEngine;
 import com.mituba.searcher.SearcherCollecter;
+import com.mituba.searcher.CompareEngine;
 
 import java.io.FileReader;
 import java.io.BufferedReader;
@@ -25,13 +26,13 @@ public class TextReader{
         this.portNum = Integer.parseInt(args[2]);
     }
 
-    public List<SearcherCollecter> readFile() throws FileNotFoundException{
+    public Stream<SearcherCollecter> readFile() throws FileNotFoundException{
         try{
             return new BufferedReader(new FileReader(filename)).lines()
                 .map(i -> i.split(",", 4))
                 .filter(i -> i.length >= 4)
-                .map(n -> new SearcherCollecter(kindOfBirthmark, portNum, n[0], n[3]))
-                .collect(Collectors.toList());
+                .map(n -> new SearcherCollecter(kindOfBirthmark, portNum, n[0], n[3]));
+                // .collect(Collectors.toList());
         }catch(Exception e){
             System.out.println(e);
             return null;

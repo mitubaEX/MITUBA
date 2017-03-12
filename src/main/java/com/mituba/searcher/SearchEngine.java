@@ -2,6 +2,7 @@ package com.mituba.searcher;
 
 import com.mituba.searcher.TextReader;
 import com.mituba.searcher.SearcherCollecter;
+import com.mituba.searcher.CompareEngine;
 
 import java.io.FileReader;
 import java.io.BufferedReader;
@@ -12,6 +13,9 @@ import java.net.*;
 import java.util.stream.Stream;
 import java.util.stream.IntStream;
 import java.util.stream.Collectors;
+
+import com.github.pochi.runner.scripts.ScriptRunner;
+import com.github.pochi.runner.scripts.ScriptRunnerBuilder;
 
 public class SearchEngine{
     private String kindOfBirthmark;
@@ -30,15 +34,16 @@ public class SearchEngine{
     }
 
     // public Stream<String[]> run(){
-    //     try{
-    //         return initUrl(coreNum).stream()
-    //             .map(n -> n.performCompare())
-    //             .map(n -> n.split(","));
-    //     }catch(Exception e){
-    //         System.out.println(e);
-    //         return null;
-    //     }
-    // }
+    public void run(){
+        try{
+            initUrl(coreNum).stream()
+                .forEach(n -> n.performCompare());
+                // .map(n -> n.split(","));
+        }catch(Exception e){
+            System.out.println(e);
+            // return null;
+        }
+    }
     public List<String[]> run2(){
         try{
             String a = initUrl2(coreNum);
@@ -66,16 +71,16 @@ public class SearchEngine{
     }
 
 
-    // public List<CompareEngine> initUrl(int coreNum) throws UnsupportedEncodingException, IOException{
-    //     String path;
-    //     if(coreNum == 0)
-    //         path = "http://localhost:"+portNum+"/solr/birth_" + kindOfBirthmark + "/select";
-    //     else
-    //         path = "http://localhost:"+portNum+"/solr/birth_" + kindOfBirthmark + "" + coreNum + "/select";
-    //     StringJoiner url = new StringJoiner("&", path + "?", "");
-    //     initMap().forEach((key, value) -> url.add(key + "=" + value));
-    //     return performSearch(url.toString());
-    // }
+    public List<CompareEngine> initUrl(int coreNum) throws UnsupportedEncodingException, IOException{
+        String path;
+        if(coreNum == 0)
+            path = "http://localhost:"+portNum+"/solr/birth_" + kindOfBirthmark + "/select";
+        else
+            path = "http://localhost:"+portNum+"/solr/birth_" + kindOfBirthmark + "" + coreNum + "/select";
+        StringJoiner url = new StringJoiner("&", path + "?", "");
+        initMap().forEach((key, value) -> url.add(key + "=" + value));
+        return performSearch(url.toString());
+    }
 
     public String initUrl2(int coreNum) throws UnsupportedEncodingException, IOException{
         String path;
@@ -88,14 +93,14 @@ public class SearchEngine{
         return url.toString();
     }
 
-    // public List<CompareEngine> performSearch(String url) throws IOException, UnsupportedEncodingException{
-    //     return new BufferedReader(new InputStreamReader(((HttpURLConnection) new URL(url).openConnection()).getInputStream())).lines().parallel()
-    //         .distinct().parallel()
-    //         .map(i -> i.split(",",3))
-    //         .filter(i -> i.length >= 3  && !Objects.equals(i[1], "lev"))
-    //         .map(n -> new CompareEngine(filename, birthmark, n[0], n[1], n[2]))
-    //         .collect(Collectors.toList());
-    // }
+    public List<CompareEngine> performSearch(String url) throws IOException, UnsupportedEncodingException{
+        return new BufferedReader(new InputStreamReader(((HttpURLConnection) new URL(url).openConnection()).getInputStream())).lines()
+            .distinct().parallel()
+            .map(i -> i.split(",",3))
+            .filter(i -> i.length >= 3  && !Objects.equals(i[1], "lev") && Double.parseDouble(i[1]) >= 0.25)
+            .map(n -> new CompareEngine(filename, birthmark, n[0], n[1], n[2]))
+            .collect(Collectors.toList());
+    }
     public List<String[]> performSearch2(String url) throws IOException, UnsupportedEncodingException{
         return new BufferedReader(new InputStreamReader(((HttpURLConnection) new URL(url).openConnection()).getInputStream())).lines().parallel()
             .distinct().parallel()

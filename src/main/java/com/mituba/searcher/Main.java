@@ -3,6 +3,7 @@ package com.mituba.searcher;
 import com.mituba.searcher.SearchEngine;
 import com.mituba.searcher.TextReader;
 import com.mituba.searcher.SearcherCollecter;
+import com.mituba.searcher.CompareEngine;
 
 import com.github.pochi.runner.scripts.ScriptRunner;
 import com.github.pochi.runner.scripts.ScriptRunnerBuilder;
@@ -34,41 +35,42 @@ class Main{
     private long allTime = 0;
     public Main(String[] args){
         try{
-            TextReader textReader = new TextReader(args);
-            textReader.readFile()
-                .stream()
-                .forEach(n -> parseStream2(n.collectSearcher()));
+            new TextReader(args).readFile()
+                .forEach(n -> parseStream(n.collectSearcher()));
+            // new TextReader(args).readFile()
+            //     .forEach(n -> parseStream2(n.collectSearcher()));
 
-            ScriptRunner runner = new ScriptRunnerBuilder().build();
+            // ScriptRunner runner = new ScriptRunnerBuilder().build();
 
-            // System.out.println(thresholdList.stream()
-            //         .filter(n -> n >= 0.75)
-            //         .count() + "," + comparisonTimeList.stream().mapToLong(n -> n).sum());
+            System.out.println(thresholdList.stream()
+                    .filter(n -> n >= 0.75)
+                    .count() + "," + comparisonTimeList.stream().mapToLong(n -> n).sum());
         }catch(Exception e){
             System.out.println(e + ":main");
         }
     }
 
-    // public void parseStream(Stream<SearchEngine> stream){
-    //     stream.forEach(n -> parseString(n.run().filter(i -> i != null)));
-    // }
+    public void parseStream(Stream<SearchEngine> stream){
+        // stream.forEach(n -> parseString(n.run().filter(i -> i != null)));
+        stream.forEach(n -> n.run());
+    }
     public void parseStream2(Stream<SearchEngine> stream){
         long start = System.currentTimeMillis();
         stream.forEach(n -> simCheck(n.run2()));
         long end = System.currentTimeMillis();
         allTime += (end - start);
         System.out.println(allTime + "ms");
-        // System.out.println(sim10 + " "
-        //         + " " + sim9
-        //         + " " + sim8
-        //         + " " + sim7
-        //         + " " + sim6
-        //         + " " + sim5
-        //         + " " + sim4
-        //         + " " + sim3
-        //         + " " + sim2
-        //         + " " + sim1
-        //         );
+        System.out.println(sim10 + " "
+                + " " + sim9
+                + " " + sim8
+                + " " + sim7
+                + " " + sim6
+                + " " + sim5
+                + " " + sim4
+                + " " + sim3
+                + " " + sim2
+                + " " + sim1
+                );
         sim10 = 0;
         sim9 = 0;
         sim8 = 0;
@@ -108,6 +110,7 @@ class Main{
     }
 
     public void parseString(Stream<String[]> stream){
+        System.out.println("parseString");
         stream.forEach(m -> listAdd(m[0],m[1]));
     }
 
