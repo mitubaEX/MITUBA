@@ -19,11 +19,13 @@ public class TextReader{
     private String filename;
     private String kindOfBirthmark;
     private int portNum;
+    private int maxCoreNum;
 
-    public TextReader(String[] args){
-        this.filename = args[0];
-        this.kindOfBirthmark = args[1];
-        this.portNum = Integer.parseInt(args[2]);
+    public TextReader(String inputFileName, String kindOfBirthmark, String portNum, String maxCoreNum){
+        this.filename = inputFileName;
+        this.kindOfBirthmark = kindOfBirthmark;
+        this.portNum = Integer.parseInt(portNum);
+        this.maxCoreNum = Integer.parseInt(maxCoreNum);
     }
 
     public Stream<SearcherCollecter> readFile() throws FileNotFoundException{
@@ -31,7 +33,7 @@ public class TextReader{
             return new BufferedReader(new FileReader(filename)).lines()
                 .map(i -> i.split(",", 4))
                 .filter(i -> i.length >= 4)
-                .map(n -> new SearcherCollecter(kindOfBirthmark, portNum, n[0], n[3]));
+                .map(n -> new SearcherCollecter(kindOfBirthmark, portNum, maxCoreNum, n[0], n[3]));
                 // .collect(Collectors.toList());
         }catch(Exception e){
             System.out.println(e);

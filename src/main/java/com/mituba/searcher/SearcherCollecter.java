@@ -23,30 +23,20 @@ class SearcherCollecter{
     private String filename;
     private String birthmark;
     private int portNum;
+    private int maxCoreNum;
 
-    public SearcherCollecter(String kindOfBirthmark, int portNum, String filename, String birthmark){
+    public SearcherCollecter(String kindOfBirthmark, int portNum, int maxCoreNum, String filename, String birthmark){
         this.kindOfBirthmark = kindOfBirthmark;
         this.portNum = portNum;
+        this.maxCoreNum = maxCoreNum;
         this.filename = filename;
         this.birthmark = birthmark;
     }
 
     public Stream<SearchEngine> collectSearcher(){
-        Map<String, Integer> map = new HashMap<String, Integer>();
-        map.put("2gram", 69);
-        map.put("3gram", 544);
-        map.put("4gram", 499);
-        map.put("5gram", 471);
-        map.put("6gram", 805);
-        map.put("uc", 516);
         Stream.Builder<SearchEngine> builder = Stream.builder();
-        for(int i = 0; i <= map.get(kindOfBirthmark); i++)
+        for(int i = 0; i <= maxCoreNum; i++)
             builder.add(new SearchEngine(kindOfBirthmark, portNum, filename, birthmark, i));
-
-        // Stream<SearchEngine> stream = builder.build();
         return builder.build();
-        // return IntStream.rangeClosed(0, 1000)
-        //     .boxed()
-        //     .mapToObj(new SearchEngine(kindOfBirthmark, portNum, filename, birthmark));
     }
 }

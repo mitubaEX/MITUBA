@@ -7,9 +7,13 @@ mainClassName = "com.mituba.searcher.Main"
 repositories{
   jcenter()
   mavenLocal()
+  mavenCentral();
 }
+
 dependencies {
     compile 'com.github.pochi:pochi-runner:1.0-SNAPSHOT'
+    // https://mvnrepository.com/artifact/args4j/args4j
+    compile group: 'args4j', name: 'args4j', version: '2.33'
 }
 
 jar {
@@ -18,5 +22,4 @@ jar {
     }
     from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
 }
-
 

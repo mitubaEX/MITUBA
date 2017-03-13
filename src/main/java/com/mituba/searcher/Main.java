@@ -33,30 +33,40 @@ class Main{
     private int sim9 = 0;
     private int sim10 = 0;
     private long allTime = 0;
+
     public Main(String[] args){
         try{
-            new TextReader(args).readFile()
-                .forEach(n -> parseStream(n.collectSearcher()));
+            Map<String, String> optionMap = new ArgumentsChecker().checkArguments(args);
+            if(Objects.equals(args[0], "search"))
+                searchMain(optionMap.get("input"), optionMap.get("birthmark"), optionMap.get("port"), optionMap.get("core"));
+            // new TextReader(args).readFile()
+            //     .forEach(n -> parseStream(n.collectSearcher()));
+            //
+            //
+            //
             // new TextReader(args).readFile()
             //     .forEach(n -> parseStream2(n.collectSearcher()));
 
-            // ScriptRunner runner = new ScriptRunnerBuilder().build();
 
-            System.out.println(thresholdList.stream()
-                    .filter(n -> n >= 0.75)
-                    .count() + "," + comparisonTimeList.stream().mapToLong(n -> n).sum());
+            // System.out.println(thresholdList.stream()
+            //         .filter(n -> n >= 0.75)
+            //         .count() + "," + comparisonTimeList.stream().mapToLong(n -> n).sum());
         }catch(Exception e){
             System.out.println(e + ":main");
         }
     }
 
-    public void parseStream(Stream<SearchEngine> stream){
-        // stream.forEach(n -> parseString(n.run().filter(i -> i != null)));
-        stream.forEach(n -> n.run());
+    // searchOnly
+    public void searchMain(String input, String kindOfBirthmark, String port, String core){
+        try{
+            new TextReader(input, kindOfBirthmark, port, core).readFile()
+                .forEach(n -> onlySearch(n.collectSearcher()));
+        }catch(Exception e){}
     }
-    public void parseStream2(Stream<SearchEngine> stream){
+
+    public void onlySearch(Stream<SearchEngine> stream){
         long start = System.currentTimeMillis();
-        stream.forEach(n -> simCheck(n.run2()));
+        stream.forEach(n -> simCheck(n.runOnlySearch()));
         long end = System.currentTimeMillis();
         allTime += (end - start);
         System.out.println(allTime + "ms");
@@ -82,6 +92,7 @@ class Main{
         sim2 = 0;
         sim1 = 0;
     }
+
     public void simCheck(List<String[]> sim){
         sim.stream()
             .map(n -> Double.parseDouble(n[1]))
@@ -107,6 +118,17 @@ class Main{
                 else if(0.1 >= i && i >= 0.0)
                     sim1++;
             });
+    }
+
+    // searchAndCompare
+    public void compareMain(){
+
+    }
+
+
+    public void parseStream(Stream<SearchEngine> stream){
+        // stream.forEach(n -> parseString(n.run().filter(i -> i != null)));
+        stream.forEach(n -> n.run());
     }
 
     public void parseString(Stream<String[]> stream){

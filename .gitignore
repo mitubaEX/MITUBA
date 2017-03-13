@@ -1,2 +1,3 @@
 .gradle
 src/main/lib/*.jar
+/bin/
