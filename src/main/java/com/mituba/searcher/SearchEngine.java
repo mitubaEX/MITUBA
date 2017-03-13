@@ -33,26 +33,17 @@ public class SearchEngine{
         this.coreNum = coreNum;
     }
 
-    // public Stream<String[]> run(){
-    public void run(){
+    public void searchAndCompare(){
         try{
             performSearch(initUrl(coreNum)).stream()
                 .forEach(n -> n.performCompare());
-                // .map(n -> n.split(","));
         }catch(Exception e){
             System.out.println(e);
-            // return null;
         }
     }
     public List<String[]> runOnlySearch(){
         try{
-            // long start = System.currentTimeMillis();
-            // System.out.println("hello");
             return performOnlySearch(initUrl(coreNum));
-            // long end = System.currentTimeMillis();
-            // AllSearchTime += (end - start);
-            // return AllSearchTime;
-            // System.out.println("searchTime:"+AllSearchTime+"ms");
         }catch(Exception e){
             System.out.println(e + ":SearchEngine");
             return new ArrayList<String[]>();

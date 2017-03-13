@@ -66,26 +66,15 @@ class CompareEngine{
         ScriptRunner runner = builder.build();
         String[] arg = { "./compare_input_csv_test.js", filename + "1.csv", filenameOfSearchResult + "2.csv" };
         runner.runsScript(arg);
-        // System.out.println("hello");
-        // List<String> list = new ArrayList<String>();
-        // System.out.println("h");
-        // return list;
-        // return new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec("java -jar -Xms12g -Xmx12g ./pochi/pochi-runner/target/pochi-runner-1.0-SNAPSHOT.jar ./compare_input_csv_test.js ./" + filename + "1.csv ./" + filenameOfSearchResult + "2.csv").getInputStream()))
-        //     .lines()
-        //     .collect(Collectors.toList());
     }
 
-    // public String performCompare(){
     public void performCompare(){
         try{
-            // List<String> list = runCompare();
             runCompare();
             deleteFile(filename.concat("1"));
             deleteFile(filenameOfSearchResult.concat("2"));
-            // return list.get(0).split(",")[2] + "," + list.get(1);
         }catch(Exception e){
             System.out.println(e);
-            // return null;
         }
     }
 }

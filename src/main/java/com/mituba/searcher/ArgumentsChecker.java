@@ -20,7 +20,6 @@ import java.util.stream.IntStream;
 import java.util.stream.Collectors;
 
 
-import static org.kohsuke.args4j.ExampleMode.ALL;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
@@ -48,7 +47,8 @@ class ArgumentsChecker{
     @Argument
     private static List<String> arguments = new ArrayList<>();
 
-    public Map<String, String> checkArguments(String[] args){
+    @SuppressWarnings("deprecation")
+	public Map<String, String> checkArguments(String[] args){
         CmdLineParser parser = new CmdLineParser(this);
         try{
             parser.parseArgument(args);

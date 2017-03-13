@@ -39,18 +39,8 @@ class Main{
             Map<String, String> optionMap = new ArgumentsChecker().checkArguments(args);
             if(Objects.equals(args[0], "search"))
                 searchMain(optionMap.get("input"), optionMap.get("birthmark"), optionMap.get("port"), optionMap.get("core"));
-            // new TextReader(args).readFile()
-            //     .forEach(n -> parseStream(n.collectSearcher()));
-            //
-            //
-            //
-            // new TextReader(args).readFile()
-            //     .forEach(n -> parseStream2(n.collectSearcher()));
-
-
-            // System.out.println(thresholdList.stream()
-            //         .filter(n -> n >= 0.75)
-            //         .count() + "," + comparisonTimeList.stream().mapToLong(n -> n).sum());
+            else if(Objects.equals(args[0], "compare"))
+                compareMain(optionMap.get("input"), optionMap.get("birthmark"), optionMap.get("port"), optionMap.get("core"));
         }catch(Exception e){
             System.out.println(e + ":main");
         }
@@ -121,24 +111,14 @@ class Main{
     }
 
     // searchAndCompare
-    public void compareMain(){
-
+    public void compareMain(String input, String kindOfBirthmark, String port, String core){
+        try{
+            new TextReader(input, kindOfBirthmark, port, core).readFile()
+                .forEach(n -> searchAndCompare(n.collectSearcher()));
+        }catch(Exception e){}
     }
-
-
-    public void parseStream(Stream<SearchEngine> stream){
-        // stream.forEach(n -> parseString(n.run().filter(i -> i != null)));
-        stream.forEach(n -> n.run());
-    }
-
-    public void parseString(Stream<String[]> stream){
-        System.out.println("parseString");
-        stream.forEach(m -> listAdd(m[0],m[1]));
-    }
-
-    public void listAdd(String a, String b){
-        thresholdList.add(Double.parseDouble(a));
-        comparisonTimeList.add(Long.parseLong(b));
+    public void searchAndCompare(Stream<SearchEngine> stream){
+        stream.forEach(n -> n.searchAndCompare());
     }
 
     public static void main(String[] args){
