@@ -28,17 +28,26 @@ public class TextReader{
         this.maxCoreNum = Integer.parseInt(maxCoreNum);
     }
 
-    public Stream<SearcherCollecter> readFile() throws FileNotFoundException{
+    public TextReader(String inputFileName){
+        this.filename = inputFileName;
+    }
+    public Stream<String[]> readFile() throws FileNotFoundException{
+        return new BufferedReader(new FileReader(filename)).lines()
+            .map(i -> i.split(",", 4))
+            .filter(i -> i.length >= 4);
+    }
+
+    public Stream<SearcherCollecter> createSearcherCollecter(){
         try{
-            return new BufferedReader(new FileReader(filename)).lines()
-                .map(i -> i.split(",", 4))
-                .filter(i -> i.length >= 4)
+            // return new BufferedReader(new FileReader(filename)).lines()
+            //     .map(i -> i.split(",", 4))
+            //     .filter(i -> i.length >= 4)
+            return readFile()
                 .map(n -> new SearcherCollecter(kindOfBirthmark, portNum, maxCoreNum, n[0], n[3]));
                 // .collect(Collectors.toList());
         }catch(Exception e){
             System.out.println(e);
             return null;
-
         }
     }
 }

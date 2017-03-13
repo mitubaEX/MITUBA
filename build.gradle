@@ -12,9 +12,13 @@ repositories{
 }
 
 dependencies {
-    compile 'com.github.pochi:pochi-runner:1.0-SNAPSHOT'
+    /* use mavenLocal */
+    /* compile group: 'args4j', name: 'args4j', version: '2.33' */
     // https://mvnrepository.com/artifact/args4j/args4j
-    compile group: 'args4j', name: 'args4j', version: '2.33'
+    /* compile 'com.github.pochi:pochi-runner:1.0-SNAPSHOT' */
+
+    /* use library in ./src/main/lib */
+    compile fileTree(dir: './src/main/lib', includes: ['*.jar'])
 }
 
 jar {

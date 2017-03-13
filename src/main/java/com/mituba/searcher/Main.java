@@ -41,6 +41,8 @@ class Main{
                 searchMain(optionMap.get("input"), optionMap.get("birthmark"), optionMap.get("port"), optionMap.get("core"));
             else if(Objects.equals(args[0], "compare"))
                 compareMain(optionMap.get("input"), optionMap.get("birthmark"), optionMap.get("port"), optionMap.get("core"));
+            else if(Objects.equals(args[0], "eachCompare"))
+                eachCompare(optionMap.get("input"), optionMap.get("dir"), optionMap.get("birthmark"));
         }catch(Exception e){
             System.out.println(e + ":main");
         }
@@ -49,7 +51,7 @@ class Main{
     // searchOnly
     public void searchMain(String input, String kindOfBirthmark, String port, String core){
         try{
-            new TextReader(input, kindOfBirthmark, port, core).readFile()
+            new TextReader(input, kindOfBirthmark, port, core).createSearcherCollecter()
                 .forEach(n -> onlySearch(n.collectSearcher()));
         }catch(Exception e){}
     }
@@ -111,15 +113,36 @@ class Main{
     }
 
     // searchAndCompare
-    public void compareMain(String input, String kindOfBirthmark, String port, String core){
+    public void compareMain(String input, String kindOfBirthmark, String port, String core) throws FileNotFoundException{
         try{
-            new TextReader(input, kindOfBirthmark, port, core).readFile()
+            new TextReader(input, kindOfBirthmark, port, core).createSearcherCollecter()
                 .forEach(n -> searchAndCompare(n.collectSearcher()));
         }catch(Exception e){}
     }
     public void searchAndCompare(Stream<SearchEngine> stream){
         stream.forEach(n -> n.searchAndCompare());
     }
+
+    // eachcompare
+    public void eachCompare(String input, String dir, String kindOfBirthmark) throws FileNotFoundException{
+        List<String[]> stream1 = new TextReader(input).readFile().collect(Collectors.toList());
+        Arrays.stream(new File(dir).listFiles())
+            .filter(i -> i.getName().contains(kindOfBirthmark))
+            .forEach(n -> {
+                try{
+                    compareStream(stream1, new TextReader(n.getAbsolutePath()).readFile().collect(Collectors.toList()));
+                }catch(Exception e){System.out.println(e + ":eachCompare");}
+            });
+    }
+
+    public void compareStream(List<String[]> a, List<String[]> b) throws FileNotFoundException{
+        a.stream().forEach(n -> compareStringStream(n, b));
+    }
+
+    public void compareStringStream(String[] a, List<String[]> b){
+        b.stream().forEach(i -> new CompareEngine(a[0], a[3], i[0], "0.0", i[3]).performCompare());
+    }
+
 
     public static void main(String[] args){
         new Main(args);

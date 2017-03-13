@@ -25,6 +25,7 @@ class CompareEngine{
     private String simOfSearchResult;
     private String birthmarkOfSearchResult;
 
+
     public CompareEngine(String filename, String birthmark, String filenameOfSearchResult, String simOfSearchResult, String birthmarkOfSearchResult){
         this.filename = filename;
         this.birthmark = birthmark;

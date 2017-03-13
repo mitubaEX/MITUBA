@@ -44,6 +44,9 @@ class ArgumentsChecker{
     @Option(name="-c", metaVar="MAXCORENUM", usage="Input max core number of search engine")
     private String maxCoreNum;
 
+    @Option(name="-dir", metaVar="DIRECTORY", usage="Input directory with birthmark")
+    private String directory;
+
     @Argument
     private static List<String> arguments = new ArrayList<>();
 
@@ -71,6 +74,7 @@ class ArgumentsChecker{
         map.put("birthmark", kindOfBirthmark);
         map.put("port", portNum);
         map.put("core", maxCoreNum);
+        map.put("dir", directory);
         return map;
     }
 }
