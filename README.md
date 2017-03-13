@@ -7,8 +7,7 @@ gradleで管理するサーバー
 
 第一引数で以下のモードを選択してください
 
-- search
-検索のみを行い，類似度の頻度と検索時間を出力する
+- search : 検索のみを行い，類似度の頻度と検索時間を出力する
 
 	- input
 	- birthmark
@@ -17,8 +16,7 @@ gradleで管理するサーバー
 	
 		- ex... java -jar MITUBA.jar search -i file -b 2gram -c 20 -p 8982
 
-- compare
-検索と比較を行う
+- compare : 検索と比較を行う
 
 	- input
 	- birthmark
@@ -28,8 +26,7 @@ gradleで管理するサーバー
 		- ex... java -jar MITUBA.jar compare -i file -b 2gram -c 20 -p 8982
 
 
-- eachCompare
-単一バースマークと全バースマークを比較する
+- eachCompare : 単一バースマークと全バースマークを比較する
 
 	- input
 	- birthmark
