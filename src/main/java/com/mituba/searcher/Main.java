@@ -62,54 +62,56 @@ class Main{
         long end = System.currentTimeMillis();
         allTime += (end - start);
         System.out.println(allTime + "ms");
-        System.out.println(sim10 + " "
-                + " " + sim9
-                + " " + sim8
-                + " " + sim7
-                + " " + sim6
-                + " " + sim5
-                + " " + sim4
-                + " " + sim3
-                + " " + sim2
-                + " " + sim1
-                );
-        sim10 = 0;
-        sim9 = 0;
-        sim8 = 0;
-        sim7 = 0;
-        sim6 = 0;
-        sim5 = 0;
-        sim4 = 0;
-        sim3 = 0;
-        sim2 = 0;
-        sim1 = 0;
+        // System.out.println(sim10 + " "
+        //         + " " + sim9
+        //         + " " + sim8
+        //         + " " + sim7
+        //         + " " + sim6
+        //         + " " + sim5
+        //         + " " + sim4
+        //         + " " + sim3
+        //         + " " + sim2
+        //         + " " + sim1
+        //         );
+        // sim10 = 0;
+        // sim9 = 0;
+        // sim8 = 0;
+        // sim7 = 0;
+        // sim6 = 0;
+        // sim5 = 0;
+        // sim4 = 0;
+        // sim3 = 0;
+        // sim2 = 0;
+        // sim1 = 0;
     }
 
     public void simCheck(List<String[]> sim){
         sim.stream()
-            .map(n -> Double.parseDouble(n[1]))
-            .forEach(i -> {
-                if(1.0 >= i && i > 0.9)
-                    sim10++;
-                else if(0.9 >= i && i > 0.8)
-                    sim9++;
-                else if(0.8 >= i && i > 0.7)
-                    sim8++;
-                else if(0.7 >= i && i > 0.6)
-                    sim7++;
-                else if(0.6 >= i && i > 0.5)
-                    sim6++;
-                else if(0.5 >= i && i > 0.4)
-                    sim5++;
-                else if(0.4 >= i && i > 0.3)
-                    sim4++;
-                else if(0.3 >= i && i > 0.2)
-                    sim3++;
-                else if(0.2 >= i && i > 0.1)
-                    sim2++;
-                else if(0.1 >= i && i >= 0.0)
-                    sim1++;
-            });
+            .forEach(n -> System.out.println(n[0] + "," + n[1] + "," + n[2]));
+        // sim.stream()
+        //     .map(n -> Double.parseDouble(n[1]))
+        //     .forEach(i -> {
+        //         if(1.0 >= i && i > 0.9)
+        //             sim10++;
+        //         else if(0.9 >= i && i > 0.8)
+        //             sim9++;
+        //         else if(0.8 >= i && i > 0.7)
+        //             sim8++;
+        //         else if(0.7 >= i && i > 0.6)
+        //             sim7++;
+        //         else if(0.6 >= i && i > 0.5)
+        //             sim6++;
+        //         else if(0.5 >= i && i > 0.4)
+        //             sim5++;
+        //         else if(0.4 >= i && i > 0.3)
+        //             sim4++;
+        //         else if(0.3 >= i && i > 0.2)
+        //             sim3++;
+        //         else if(0.2 >= i && i > 0.1)
+        //             sim2++;
+        //         else if(0.1 >= i && i >= 0.0)
+        //             sim1++;
+        //     });
     }
 
     // searchAndCompare

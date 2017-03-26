@@ -34,6 +34,7 @@ class SearcherCollecter{
     }
 
     public Stream<SearchEngine> collectSearcher(){
+        System.out.println("inputBirthmark," + filename + "," + birthmark);
         Stream.Builder<SearchEngine> builder = Stream.builder();
         for(int i = 0; i <= maxCoreNum; i++)
             builder.add(new SearchEngine(kindOfBirthmark, portNum, filename, birthmark, i));

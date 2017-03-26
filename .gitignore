@@ -1,3 +1,6 @@
 .gradle
 src/main/lib/*.jar
 /bin/
+*.txt
+*.csv
+build

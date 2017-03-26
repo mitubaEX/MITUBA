@@ -54,14 +54,14 @@ public class SearchEngine{
             .distinct()
             .map(i -> i.split(",",3))
             .filter(i -> i != null)
-            .filter(i -> i.length >= 3  && !Objects.equals(i[1], "lev"))
+            .filter(i -> i.length >= 3  && !Objects.equals(i[1], "lev") && Double.parseDouble(i[1]) >= 0.0)
             .collect(Collectors.toList());
     }
 
 
     public Map<String, String> initMap() throws UnsupportedEncodingException{
         Map<String, String> map = new HashMap<>();
-        map.put("q", "data:"+URLEncoder.encode(birthmark, "UTF-8"));
+        map.put("q", URLEncoder.encode(birthmark, "UTF-8"));
         map.put("sort", "strdist(data,\"" + URLEncoder.encode(birthmark, "UTF-8") + "\",edit)+desc");
         map.put("rows", "2010");
         map.put("fl", "filename,lev:strdist(data,\"" + URLEncoder.encode(birthmark, "UTF-8") + "\",edit),data");
@@ -86,7 +86,7 @@ public class SearchEngine{
         return new BufferedReader(new InputStreamReader(((HttpURLConnection) new URL(url).openConnection()).getInputStream())).lines()
             .distinct().parallel()
             .map(i -> i.split(",",3))
-            .filter(i -> i.length >= 3  && !Objects.equals(i[1], "lev") && Double.parseDouble(i[1]) >= 0.25)
+            .filter(i -> i.length >= 3  && !Objects.equals(i[1], "lev") && Double.parseDouble(i[1]) >= 0.5)
             .map(n -> new CompareEngine(filename, birthmark, n[0], n[1], n[2]))
             .collect(Collectors.toList());
     }
