@@ -5,6 +5,9 @@ apply plugin: 'eclipse'
 
 mainClassName = "com.mituba.searcher.Main"
 
+group = "com.mituba.searcher"
+version = "1.0"
+
 repositories{
   jcenter()
   mavenLocal()
@@ -13,12 +16,12 @@ repositories{
 
 dependencies {
     /* use mavenLocal */
-    /* compile group: 'args4j', name: 'args4j', version: '2.33' */
+    compile group: 'args4j', name: 'args4j', version: '2.33'
     // https://mvnrepository.com/artifact/args4j/args4j
-    /* compile 'com.github.pochi:pochi-runner:1.0-SNAPSHOT' */
+    compile 'com.github.pochi:pochi-runner:1.0-SNAPSHOT'
 
     /* use library in ./src/main/lib */
-    compile fileTree(dir: './src/main/lib', includes: ['*.jar'])
+    /* compile fileTree(dir: './src/main/lib', includes: ['*.jar']) */
 }
 
 jar {
