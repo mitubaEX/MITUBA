@@ -13,8 +13,9 @@ gradleで管理するサーバー
 	- birthmark
 	- maxcore
 	- portnum
+	- threshold
 	
-		- ex... java -jar MITUBA.jar search -i file -b 2gram -c 20 -p 8982
+		- ex... java -jar MITUBA.jar search -i file -b 2gram -c 20 -p 8982 -t 0.75
 
 - compare : 検索と比較を行う
 
@@ -22,8 +23,9 @@ gradleで管理するサーバー
 	- birthmark
 	- maxcore
 	- portnum
+	- threshold
 	
-		- ex... java -jar MITUBA.jar compare -i file -b 2gram -c 20 -p 8982
+		- ex... java -jar MITUBA.jar compare -i file -b 2gram -c 20 -p 8982 -t 0.75
 
 
 - eachCompare : 単一バースマークと全バースマークを比較する
