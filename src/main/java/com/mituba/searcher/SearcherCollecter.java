@@ -24,20 +24,22 @@ class SearcherCollecter{
     private String birthmark;
     private int portNum;
     private int maxCoreNum;
+    private String threshold;
 
-    public SearcherCollecter(String kindOfBirthmark, int portNum, int maxCoreNum, String filename, String birthmark){
+    public SearcherCollecter(String kindOfBirthmark, int portNum, int maxCoreNum, String filename, String birthmark, String threshold){
         this.kindOfBirthmark = kindOfBirthmark;
         this.portNum = portNum;
         this.maxCoreNum = maxCoreNum;
         this.filename = filename;
         this.birthmark = birthmark;
+        this.threshold = threshold;
     }
 
     public Stream<SearchEngine> collectSearcher(){
         System.out.println("inputBirthmark," + filename + "," + birthmark);
         Stream.Builder<SearchEngine> builder = Stream.builder();
         for(int i = 0; i <= maxCoreNum; i++)
-            builder.add(new SearchEngine(kindOfBirthmark, portNum, filename, birthmark, i));
+            builder.add(new SearchEngine(kindOfBirthmark, portNum, filename, birthmark, i, threshold));
         return builder.build();
     }
 }

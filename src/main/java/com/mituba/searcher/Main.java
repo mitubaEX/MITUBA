@@ -38,9 +38,9 @@ class Main{
         try{
             Map<String, String> optionMap = new ArgumentsChecker().checkArguments(args);
             if(Objects.equals(args[0], "search"))
-                searchMain(optionMap.get("input"), optionMap.get("birthmark"), optionMap.get("port"), optionMap.get("core"));
+                searchMain(optionMap.get("input"), optionMap.get("birthmark"), optionMap.get("port"), optionMap.get("core"), optionMap.get("threshold"));
             else if(Objects.equals(args[0], "compare"))
-                compareMain(optionMap.get("input"), optionMap.get("birthmark"), optionMap.get("port"), optionMap.get("core"));
+                compareMain(optionMap.get("input"), optionMap.get("birthmark"), optionMap.get("port"), optionMap.get("core"), optionMap.get("threshold"));
             else if(Objects.equals(args[0], "eachCompare"))
                 eachCompare(optionMap.get("input"), optionMap.get("dir"), optionMap.get("birthmark"));
         }catch(Exception e){
@@ -49,16 +49,17 @@ class Main{
     }
 
     // searchOnly
-    public void searchMain(String input, String kindOfBirthmark, String port, String core){
+    public void searchMain(String input, String kindOfBirthmark, String port, String core, String threshold){
         try{
-            new TextReader(input, kindOfBirthmark, port, core).createSearcherCollecter()
+            new TextReader(input, kindOfBirthmark, port, core, threshold).createSearcherCollecter()
                 .forEach(n -> onlySearch(n.collectSearcher()));
         }catch(Exception e){}
     }
 
     public void onlySearch(Stream<SearchEngine> stream){
         long start = System.currentTimeMillis();
-        stream.forEach(n -> simCheck(n.runOnlySearch()));
+        // stream.forEach(n -> simCheck(n.runOnlySearch()));
+        stream.forEach(n -> n.runOnlySearch());
         long end = System.currentTimeMillis();
         allTime += (end - start);
         System.out.println(allTime + "ms");
@@ -115,9 +116,9 @@ class Main{
     }
 
     // searchAndCompare
-    public void compareMain(String input, String kindOfBirthmark, String port, String core) throws FileNotFoundException{
+    public void compareMain(String input, String kindOfBirthmark, String port, String core, String threshold) throws FileNotFoundException{
         try{
-            new TextReader(input, kindOfBirthmark, port, core).createSearcherCollecter()
+            new TextReader(input, kindOfBirthmark, port, core, threshold).createSearcherCollecter()
                 .forEach(n -> searchAndCompare(n.collectSearcher()));
         }catch(Exception e){}
     }

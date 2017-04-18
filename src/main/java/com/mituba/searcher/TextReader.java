@@ -20,12 +20,14 @@ public class TextReader{
     private String kindOfBirthmark;
     private int portNum;
     private int maxCoreNum;
+    private String threshold;
 
-    public TextReader(String inputFileName, String kindOfBirthmark, String portNum, String maxCoreNum){
+    public TextReader(String inputFileName, String kindOfBirthmark, String portNum, String maxCoreNum, String threshold){
         this.filename = inputFileName;
         this.kindOfBirthmark = kindOfBirthmark;
         this.portNum = Integer.parseInt(portNum);
         this.maxCoreNum = Integer.parseInt(maxCoreNum);
+        this.threshold = threshold;
     }
 
     public TextReader(String inputFileName){
@@ -43,7 +45,7 @@ public class TextReader{
             //     .map(i -> i.split(",", 4))
             //     .filter(i -> i.length >= 4)
             return readFile()
-                .map(n -> new SearcherCollecter(kindOfBirthmark, portNum, maxCoreNum, n[0], n[3]));
+                .map(n -> new SearcherCollecter(kindOfBirthmark, portNum, maxCoreNum, n[0], n[3], threshold));
                 // .collect(Collectors.toList());
         }catch(Exception e){
             System.out.println(e);

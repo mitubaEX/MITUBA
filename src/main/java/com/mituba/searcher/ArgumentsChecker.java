@@ -47,6 +47,9 @@ class ArgumentsChecker{
     @Option(name="-dir", metaVar="DIRECTORY", usage="Input directory with birthmark")
     private String directory;
 
+    @Option(name="-t", metaVar="THRESHOLD", usage="Input threshold of SearchEngine")
+    private String threshold;
+
     @Argument
     private static List<String> arguments = new ArrayList<>();
 
@@ -56,7 +59,7 @@ class ArgumentsChecker{
         try{
             parser.parseArgument(args);
             if(inputFileName == null && outputFileName == null && kindOfBirthmark == null && portNum == null
-                    && maxCoreNum == null)
+                    && maxCoreNum == null && threshold == null)
                 throw new CmdLineException(parser, "No argument is given");
         }
         catch(CmdLineException e){
@@ -75,6 +78,7 @@ class ArgumentsChecker{
         map.put("port", portNum);
         map.put("core", maxCoreNum);
         map.put("dir", directory);
+        map.put("threshold", threshold);
         return map;
     }
 }
