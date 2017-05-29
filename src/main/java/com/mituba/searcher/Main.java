@@ -133,7 +133,7 @@ class Main{
             .filter(i -> i.getName().contains(kindOfBirthmark))
             .forEach(n -> {
                 try{
-                    compareStream(stream1, new TextReader(n.getAbsolutePath()).readFile().collect(Collectors.toList()));
+                    new CompareEngine(input, n.getAbsolutePath()).performCompareEachCompare();
                 }catch(Exception e){System.out.println(e + ":eachCompare");}
             });
     }

@@ -34,6 +34,11 @@ class CompareEngine{
         this.birthmarkOfSearchResult = birthmarkOfSearchResult;
     }
 
+    public CompareEngine(String filename, String filenameOfSearchResult){
+        this.filename = filename;
+        this.filenameOfSearchResult = filenameOfSearchResult;
+    }
+
 
     public File createFile(String filename) throws IOException{
         File file = new File("./" + filename + ".csv");
@@ -68,12 +73,25 @@ class CompareEngine{
         String[] arg = { "./compare_input_csv_test.js", filename + "1.csv", filenameOfSearchResult + "2.csv" };
         runner.runsScript(arg);
     }
+    public void runCompareEachCompare() throws IOException,ScriptException{
+        ScriptRunnerBuilder builder = new ScriptRunnerBuilder();
+        ScriptRunner runner = builder.build();
+        String[] arg = { "./compare_input_csv_test.js", filename + "1.csv", filenameOfSearchResult + "2.csv" };
+        runner.runsScript(arg);
+    }
 
     public void performCompare(){
         try{
             runCompare();
             deleteFile(filename.concat("1"));
             deleteFile(filenameOfSearchResult.concat("2"));
+        }catch(Exception e){
+            System.out.println(e);
+        }
+    }
+    public void performCompareEachCompare(){
+        try{
+            runCompareEachCompare();
         }catch(Exception e){
             System.out.println(e);
         }
